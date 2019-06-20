@@ -31,20 +31,10 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
-  },
-  mounted(){
-    axios.get('https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22')
-    .then(response => {
-      console.log(response.data);
-    })
-    .catch(error => {
-      console.log(error);
-    })
   }
 }
 </script>
