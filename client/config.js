@@ -1,3 +1,3 @@
 module.exports = {
-    devPort: 8000
+    devPort: 8080
 };

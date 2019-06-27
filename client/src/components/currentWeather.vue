@@ -3,6 +3,7 @@
         <h1>{{city.name}}</h1>
         <p>{{city.sys.country}}</p>
         <p>{{city.weather[0].description}}</p>
+        
     </div>
 </template>
 
