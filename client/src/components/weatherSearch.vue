@@ -22,7 +22,6 @@ export default {
   methods: {
     search(){
       try{
-        // var searchCity = this.city;
         this.$store.dispatch('searchCity',
         { city: this.city})
       }catch(err){

@@ -1,9 +1,8 @@
 <template>
     <div>
-        <h1>{{location.name}}</h1>
-        <p>{{location.sys.country}}</p>
-        <p>{{location.weather[0].description}}</p>
-        
+        <h1>{{userLoc.name}}</h1>
+        <p>{{userLoc.sys.country}}</p>
+        <p>{{userLoc.weather[0].description}}</p>
     </div>
 </template>
 
@@ -11,14 +10,10 @@
 // import axios from 'axios'
 // import { mapGetters } from 'vuex'
 export default {
-  name: 'currentWeather',
+  name: 'userWeather',
   computed: {
-      // ...mapGetters([
-      //     'getCity'
-      // ]),
-      location(){
-          return this.$store.state.location;
-        // return this.$store.getters.getCity;
+      userLoc(){
+          return this.$store.state.userLocation;
       }
   }
 }

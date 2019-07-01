@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <currentWeather/>
+    <!-- <userLocation v-if="!getCity.name"/>
+    <currentWeather v-if="getCity.name" /> -->
+    <currentWeather />
     <weatherSearch />
   </div>
 </template>
@@ -9,13 +10,17 @@
 <script>
 import currentWeather from './components/currentWeather.vue'
 import weatherSearch from './components/weatherSearch.vue'
-
+import { mapGetters } from 'vuex'
 export default {
   name: 'app',
   components: {
     weatherSearch,
-    currentWeather
+    currentWeather,
+  },
+  mounted() {
+    this.$store.dispatch('getLocation')
   }
+
 }
 </script>
 
