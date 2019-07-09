@@ -1,9 +1,13 @@
 <template>
-    <div>
+    <div v-if="location">
         <h1>{{location.name}}</h1>
-        <p>{{location.sys.country}}</p>
+        <p v-if="location.sys.country">{{location.sys.country}}</p>
+        <img :src="'http://openweathermap.org/img/wn/' + location.weather[0].icon + '@2x.png'">
         <p>{{location.weather[0].description}}</p>
         
+        <p id="temp-average">{{location.main.temp}}&deg;</p>
+        <p id="temp-max">Highest temp:{{location.main.temp_max}}&deg;</p>
+        <p id="temp-min">Lowest temp:{{location.main.temp_min}}&deg;</p>
     </div>
 </template>
 
@@ -13,12 +17,8 @@
 export default {
   name: 'currentWeather',
   computed: {
-      // ...mapGetters([
-      //     'getCity'
-      // ]),
       location(){
           return this.$store.state.location;
-        // return this.$store.getters.getCity;
       }
   }
 }

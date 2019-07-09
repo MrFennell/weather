@@ -1,8 +1,19 @@
 <template>
 <div>
+    <p v-if="error">{{error}}</p>
     <form @submit.prevent="search" enctype="multipart/form-data" id="search">
         <input v-model="city" name="city">
+
         <input type="submit" value="search">
+          <br>
+        <input type="radio" id="imperial" value="imperial" v-model="tempUnit">
+        <label for="imperial">Imperial</label>
+        <br>
+        <input type="radio" id="metric" value="metric" v-model="tempUnit">
+        <label for="metric">Metric</label>
+        <br>
+        <input type="radio" id="kelvin" value="kelvin" v-model="tempUnit">
+        <label for="kelvin">Kelvin</label>
     </form>
 </div>
 </template>
@@ -16,17 +27,27 @@ export default {
   },
   data() {
     return{
-      city: ''
+      city: '',
+      tempUnit: 'imperial',
+      error:null
     }
   },
   methods: {
     search(){
-      try{
-        this.$store.dispatch('searchCity',
-        { city: this.city})
-      }catch(err){
-         (error) => this.error = error.response.data.error
+      this.error = null;
+      const city = this.city;
+      if(city !== ''){
+        try{
+          this.$store.dispatch('searchCity',
+          { city: this.city, tempUnit: this.tempUnit})
+        }catch(err){
+          (error) => this.error = error.response.data.error
+        }
       }
+      else{
+        this.error = "Enter a city first."
+      }
+
     }
   }
 }

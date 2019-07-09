@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const axios = require("axios");
 const app = express();
 const path = require('path');
+require('dotenv').config();
 
 app.set('views', './views');
 
@@ -20,10 +21,8 @@ app.get('/getLocation', async (req, res) => {
     if (jsonUserLoc){
 
         try{
-            const appId = '772769dd002aa4f3cc706920eb26ef34';
-            // const appId = process.env.WeatherAPI;
-            console.log("WeatherAPI" + process.env.VUE_APP_WeatherAPI);
-            const response = await axios.get('https://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&appid='+appId);
+
+            const response = await axios.get('https://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&units=imperial'+'&appid='+process.env.VUE_APP_WeatherAPI);
             res.end(JSON.stringify(response.data, null, 4));
         }
         catch(err){
@@ -33,14 +32,45 @@ app.get('/getLocation', async (req, res) => {
     }
 });
 
-app.post('/searchCity', async (req, res) => {
-    const appId = '772769dd002aa4f3cc706920eb26ef34';
-    const city = req.body.city;
-    
-    const response = await axios.get('https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+appId);
-    res.end(JSON.stringify(response.data, null, 4)); 
 
+app.post('/searchCity', async (req, res) => {
+    const city2 = req.location;
+    console.log("vuex"+city2);
+    const city = req.body.city;
+    const tempUnit = req.body.tempUnit;
+    try{
+        const response = await axios.get('https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+process.env.VUE_APP_WeatherAPI+'&units='+tempUnit);
+        res.end(JSON.stringify(response.data, null, 4)); 
+    }       
+        catch(err){
+        console.log(err);
+    }
 });
+app.get('/getForecast', async (req, res) => {
+    
+    const lat = req.body.lat;
+    const lon = req.body.lon;
+    var vuex = req.location;
+    console.log('vuex:'+vuex);
+        // try{
+        //     const response = await axios.get('https://api.openweathermap.org/data/2.5/forecast?lat='+lat+'&lon='+lon+'&units=imperial'+'&appid='+process.env.VUE_APP_WeatherAPI);
+        //     res.end(JSON.stringify(response.data, null, 4));
+        // }
+        // catch(err){
+        //     console.log(err);
+        // }
+    res.end('');
+        
+});
+
+// app.get('/getCities', async (req, res) => {
+//     var fs = require("fs");
+//     var contents = fs.readFileSync("city.list.json");
+//     var jsonContent = JSON.parse(contents);
+//     var str = "Novinki";
+
+//     res.end(JSON.stringify(cities, null, 4)); 
+// });
 
 app.use('/static', express.static(path.join(__dirname,"/dist/"))); 
 app.get('/', function(req,res) {

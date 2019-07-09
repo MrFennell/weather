@@ -4,18 +4,24 @@
     <currentWeather v-if="getCity.name" /> -->
     <currentWeather />
     <weatherSearch />
+    <!-- <citiesList /> -->
+    <forecast />
   </div>
 </template>
 
 <script>
 import currentWeather from './components/currentWeather.vue'
 import weatherSearch from './components/weatherSearch.vue'
-import { mapGetters } from 'vuex'
+// import citiesList from './components/citiesList.vue'
+import forecast from './components/forecast.vue'
+// import { mapGetters } from 'vuex'
 export default {
   name: 'app',
   components: {
     weatherSearch,
     currentWeather,
+    // citiesList,
+    forecast
   },
   mounted() {
     this.$store.dispatch('getLocation')
