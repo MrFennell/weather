@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 import axios from 'axios'
-
+// import moment from 'moment'
 export default new Vuex.Store({
     state:{
         location: {},
@@ -14,11 +14,9 @@ export default new Vuex.Store({
         cities: {},
         forecast: {}
     },
-    // getters: {
-    //     getCity: (state) => {return state.city},
-    //     getLat: (state) => {return state.location.coord.lat},
-    //     getLon: (state) => {return state.location.coord.lon}
-    // },
+    getters: {
+       
+    },
     mutations:
     {
         setLocation(state, location){

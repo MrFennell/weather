@@ -6,8 +6,8 @@
         <p>{{location.weather[0].description}}</p>
         
         <p id="temp-average">{{location.main.temp | round}}&deg;</p>
-        <p id="temp-max">Highest temp:{{location.main.temp_max}}&deg;</p>
-        <p id="temp-min">Lowest temp:{{location.main.temp_min}}&deg;</p>
+        <p id="temp-max">Highest temp:{{location.main.temp_max | round}}&deg;</p>
+        <p id="temp-min">Lowest temp:{{location.main.temp_min | round}}&deg;</p>
     </div>
 </template>
 
