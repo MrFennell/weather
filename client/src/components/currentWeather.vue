@@ -5,7 +5,7 @@
         <img :src="'http://openweathermap.org/img/wn/' + location.weather[0].icon + '@2x.png'">
         <p>{{location.weather[0].description}}</p>
         
-        <p id="temp-average">{{location.main.temp}}&deg;</p>
+        <p id="temp-average">{{location.main.temp | round}}&deg;</p>
         <p id="temp-max">Highest temp:{{location.main.temp_max}}&deg;</p>
         <p id="temp-min">Lowest temp:{{location.main.temp_min}}&deg;</p>
     </div>
@@ -20,6 +20,12 @@ export default {
       location(){
           return this.$store.state.location;
       }
+  },
+  filters: {
+    round: function (value){
+      if (!value) return ''
+      return Math.round(value);
+    }
   }
 }
 </script>

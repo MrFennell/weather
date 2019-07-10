@@ -14,9 +14,11 @@ export default new Vuex.Store({
         cities: {},
         forecast: {}
     },
-    getters: {
-        getCity: (state) => {return state.city}
-    },
+    // getters: {
+    //     getCity: (state) => {return state.city},
+    //     getLat: (state) => {return state.location.coord.lat},
+    //     getLon: (state) => {return state.location.coord.lon}
+    // },
     mutations:
     {
         setLocation(state, location){
@@ -34,7 +36,7 @@ export default new Vuex.Store({
         setCities(state, cities){
             state.cities = cities;
         },
-        setForecast(state, forecast){
+        setforecast(state, forecast){
             state.forecast = forecast;
         }
     },
@@ -53,8 +55,8 @@ export default new Vuex.Store({
             commit('setUserWeather', response.data);
         },
         async getForecast({commit}, payload){
-            const response = await axios.get('/getForecast', payload)
-            commit('setForecast', response.data);
+            const response = await axios.get('/getforecast', payload)
+            commit('setforecast', response.data);
         },
         async searchCity({commit}, payload){
             const response = await axios.post('/searchCity', payload)

@@ -24,7 +24,8 @@ export default {
     forecast
   },
   mounted() {
-    this.$store.dispatch('getLocation')
+    this.$store.dispatch('getLocation'),
+    this.$store.dispatch('getForecast')
   }
 
 }

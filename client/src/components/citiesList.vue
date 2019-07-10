@@ -10,8 +10,6 @@ export default {
   name: 'citiesList',
   computed: {
       cities(){
-
-
         //   return axios.get('/citiesList');
         this.$store.dispatch('getCities');
       }
