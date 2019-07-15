@@ -36,10 +36,10 @@ export default {
   name: 'forecast',
   computed: {
       forecasts(){
-        return this.$store.state.forecast.list
+        return this.$store.state.location.list
       }, 
       forecastsFilters(){
-          let flist = this.$store.state.forecast.list;
+          let flist = this.$store.state.location.list;
           const day = flist => moment(flist.dt_txt).format('dddd');
           const result = _.groupBy(flist, day);
           return result;

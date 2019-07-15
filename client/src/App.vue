@@ -3,6 +3,10 @@
     <!-- <userLocation v-if="!getCity.name"/>
     <currentWeather v-if="getCity.name" /> -->
     <currentWeather />
+    
+    <!-- <ForcastChart /> -->
+
+      <!-- <Visualisation></Visualisation> -->
     <weatherSearch />
     <!-- <citiesList /> -->
     <forecast />
@@ -10,18 +14,21 @@
 </template>
 
 <script>
+//  import Visualisation from './components/chart/Visualisation.vue';
 import currentWeather from './components/currentWeather.vue'
 import weatherSearch from './components/weatherSearch.vue'
 // import citiesList from './components/citiesList.vue'
 import forecast from './components/forecast.vue'
+// import ForcastChart from './components/ForcastChart.vue'
 // import { mapGetters } from 'vuex'
 export default {
   name: 'app',
   components: {
     weatherSearch,
     currentWeather,
-    // citiesList,
-    forecast
+    // Visualisation,
+    forecast,
+    // ForcastChart
   },
   mounted() {
     this.$store.dispatch('getLocation'),

@@ -21,9 +21,23 @@ app.get('/getLocation', async (req, res) => {
     if (jsonUserLoc){
 
         try{
+            //get current weather api
+            const responseWeather = await axios.get('https://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&units=imperial'+'&appid='+process.env.VUE_APP_WeatherAPI);
+            const responseWeatherStr = JSON.stringify(responseWeather.data, null, 4);
+            const response = JSON.parse(responseWeatherStr)
 
-            const response = await axios.get('https://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&units=imperial'+'&appid='+process.env.VUE_APP_WeatherAPI);
-            res.end(JSON.stringify(response.data, null, 4));
+            //get weather forecast api
+            const responseForecast = await axios.get('https://api.openweathermap.org/data/2.5/forecast?lat='+lat+'&lon='+lon+'&units=imperial'+'&appid='+process.env.VUE_APP_WeatherAPI);
+            const forecastStr = (JSON.stringify(responseForecast.data, null, 4))
+            
+            //copy the forecast list itself, it's all we need from forecast data
+            const forecast = JSON.parse(forecastStr)
+            const forecastList = forecast.list;
+
+            //add forecast to current weather
+            response.list = forecastList;            
+
+            res.send(JSON.stringify(response, null, 4));
         }
         catch(err){
             console.log(err);
@@ -32,40 +46,33 @@ app.get('/getLocation', async (req, res) => {
     }
 });
 
-
 app.post('/searchCity', async (req, res) => {
-    const city2 = req.location;
-    console.log("vuex"+city2);
     const city = req.body.city;
     const tempUnit = req.body.tempUnit;
     try{
-        const response = await axios.get('https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+process.env.VUE_APP_WeatherAPI+'&units='+tempUnit);
-        res.end(JSON.stringify(response.data, null, 4)); 
+        //get current weather api
+        const responseWeather = await axios.get('https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+process.env.VUE_APP_WeatherAPI+'&units='+tempUnit);
+        const responseWeatherStr = JSON.stringify(responseWeather.data, null, 4);
+        const response = JSON.parse(responseWeatherStr)
+        
+        //get weather forecast api
+        const responseForecast = await axios.get('https://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid='+process.env.VUE_APP_WeatherAPI+'&units='+tempUnit);
+        const forecastStr = (JSON.stringify(responseForecast.data, null, 4))
+    
+        //copy the forecast list itself, it's all we need from forecast data
+        const forecast = JSON.parse(forecastStr)
+        const forecastList = forecast.list;
+
+        //add forecast to current weather
+        response.list = forecastList;           
+        
+        res.send(JSON.stringify(response, null, 4)); 
     }       
         catch(err){
         console.log(err);
     }
 });
-app.get('/getforecast', async (req, res) => {
-    const userLoc = await axios.get('http://ip-api.com/json/')
-    const jsonUserLoc = (JSON.stringify(userLoc.data, null, 4))
-    const jsonUserLocStr = JSON.parse(jsonUserLoc);
-    const lat = jsonUserLocStr.lat;
-    const lon = jsonUserLocStr.lon;
 
-    if (jsonUserLoc){
-
-        try{
-
-            const response = await axios.get('https://api.openweathermap.org/data/2.5/forecast?lat='+lat+'&lon='+lon+'&units=imperial'+'&appid='+process.env.VUE_APP_WeatherAPI);
-            res.end(JSON.stringify(response.data, null, 4));
-        }
-        catch(err){
-            console.log(err);
-        }
-        
-    }
-});
 
 // app.get('/getCities', async (req, res) => {
 //     var fs = require("fs");
