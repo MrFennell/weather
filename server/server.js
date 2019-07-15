@@ -73,6 +73,24 @@ app.post('/searchCity', async (req, res) => {
     }
 });
 
+app.get('/getforecast', async (req, res) => {
+    const userLoc = await axios.get('http://ip-api.com/json/')
+    const jsonUserLoc = (JSON.stringify(userLoc.data, null, 4))
+    const jsonUserLocStr = JSON.parse(jsonUserLoc);
+    const lat = jsonUserLocStr.lat;
+    const lon = jsonUserLocStr.lon;
+
+    if (jsonUserLoc){
+        try{
+            const response = await axios.get('https://api.openweathermap.org/data/2.5/forecast?lat='+lat+'&lon='+lon+'&units=imperial'+'&appid='+process.env.VUE_APP_WeatherAPI);
+            res.end(JSON.stringify(response.data, null, 4));
+        }
+        catch(err){
+            console.log(err);
+        }
+        
+    }
+});
 
 // app.get('/getCities', async (req, res) => {
 //     var fs = require("fs");
