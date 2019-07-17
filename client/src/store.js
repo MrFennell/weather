@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+// import moment from 'moment'
 
 Vue.use(Vuex)
 
@@ -22,6 +23,13 @@ export default new Vuex.Store({
         // getLocation: (state) =>{return state.location[0]}
         // getLat: (state) => {return state.location.coord.lat},
         // getLon: (state) => {return state.location.coord.lon}
+        // getCurrentWeekday: (state) => {return moment(state.location.list[0].dt).format('dddd')}
+        // getCurrentWeekday: state => {
+        //     let d = state.location.list[0].dt_txt;
+        //     console.log(d)
+        //     return d;
+        // }
+
     },
     mutations:
     {

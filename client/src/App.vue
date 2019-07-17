@@ -9,6 +9,7 @@
       <!-- <Visualisation></Visualisation> -->
     <weatherSearch />
     <!-- <citiesList /> -->
+
     <forecast />
   </div>
 </template>
@@ -31,8 +32,7 @@ export default {
     // ForcastChart
   },
   mounted() {
-    this.$store.dispatch('getLocation'),
-    this.$store.dispatch('getForecast')
+    this.$store.dispatch('getLocation')
   }
 
 }
