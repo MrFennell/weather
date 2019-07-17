@@ -2,9 +2,9 @@
 <div>
       
     <ul class="forecastTabs">
-      <li v-on:click="currentDay = ''">5 Day Forecast</li>   
+      <li v-on:click="setDay('')" class="tab" v-bind:class="{ 'active': activeTab === ''}">5 Day Forecast</li>   
       <div v-for="(forecast, index) in forecastsByDay" v-bind:key="forecast.dt">
-          <li v-on:click="setDay([index][0])" class="tab" v-bind:class="{ 'active': activeIndex === index}">{{forecast[0].dt_txt | weekday}}</li>
+          <li v-on:click="setDay([index][0])" class="tab" v-bind:class="{ 'active': activeTab === index}">{{forecast[0].dt_txt | weekday}}</li>
       </div>
     </ul>
 
@@ -79,12 +79,10 @@ export default {
   data(){
     return{
       currentDay: '',
-       activeIndex: undefined
+       activeTab: ''
     }
   },
-  // mounted() {
-  //     this.setInitialDay()
-  // },
+
   computed: {
       forecasts(){
         return this.$store.state.location.list
@@ -132,7 +130,7 @@ export default {
   methods: {
     setDay(i){
       this.currentDay = i;
-      this.activeIndex = i
+      this.activeTab = i
     }
   }
 }
