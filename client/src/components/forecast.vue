@@ -2,7 +2,7 @@
 <div>
       
     <ul class="forecastTabs">
-      <li v-on:click="setDay('')" class="tab" v-bind:class="{ 'active': activeTab === ''}">5 Day Forecast</li>   
+      <li v-on:click="setDay('')" class="tab" v-bind:class="{ 'active': activeTab === ''}">Full Forecast</li>   
       <div v-for="(forecast, index) in forecastsByDay" v-bind:key="forecast.dt">
           <li v-on:click="setDay([index][0])" class="tab" v-bind:class="{ 'active': activeTab === index}">{{forecast[0].dt_txt | weekday}}</li>
       </div>
@@ -37,8 +37,6 @@
         <transition name="slide-fade">
         <div v-if="currentDay === ''">
          <div v-for="(array) in forecastsByDay" v-bind:key="array.dt" >
-            <!-- {{forecastsByDay[0]}} -->
-            
             <div>
                 <div class="weekday-header"><p>{{array[0].dt_txt | weekday}}</p></div>
                 <div class="forecast-list" v-for="forecast in array" v-bind:key="forecast.dt">
@@ -93,6 +91,7 @@ export default {
           const result = _.groupBy(flist, day);
           return result;
       },
+        //spits out the current day
         forecastsByDayTest(){
           const flist = this.$store.state.location.list;
           const day = flist => moment(flist.dt_txt).format('dddd');
@@ -146,10 +145,10 @@ export default {
   background: black;
 }
 .slide-fade-enter-active {
-  transition: all .3s ease;
+  transition: all .5s ease;
 }
 .slide-fade-leave-active {
-  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  transition: all .5s ease
 }
 .slide-fade-enter, .slide-fade-leave-to
 /* .slide-fade-leave-active below version 2.1.8 */ {

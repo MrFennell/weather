@@ -1,12 +1,8 @@
 <template>
   <div id="app">
-    <!-- <userLocation v-if="!getCity.name"/>
-    <currentWeather v-if="getCity.name" /> -->
     <currentWeather />
     
-    <!-- <ForcastChart /> -->
-
-      <!-- <Visualisation></Visualisation> -->
+    <Visualisation />
     <weatherSearch />
     <!-- <citiesList /> -->
 
@@ -15,25 +11,33 @@
 </template>
 
 <script>
-//  import Visualisation from './components/chart/Visualisation.vue';
+
 import currentWeather from './components/currentWeather.vue'
 import weatherSearch from './components/weatherSearch.vue'
+ import Visualisation from './components/chart/Visualisation.vue';
 // import citiesList from './components/citiesList.vue'
 import forecast from './components/forecast.vue'
-// import ForcastChart from './components/ForcastChart.vue'
-// import { mapGetters } from 'vuex'
+
+import { mapGetters } from 'vuex'
 export default {
   name: 'app',
   components: {
     weatherSearch,
     currentWeather,
-    // Visualisation,
+    Visualisation,
     forecast,
-    // ForcastChart
   },
   mounted() {
     this.$store.dispatch('getLocation')
-  }
+  },
+  computed: {
+        ...mapGetters([
+          'dayList'
+        ]),
+        dayLabels(){
+          return this.$store.getters.dayList
+        }
+      },
 
 }
 </script>
