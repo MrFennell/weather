@@ -1,13 +1,27 @@
 <template>
-  <div id="app">
-    <currentWeather />
-    
-    <Visualisation />
-    <weatherSearch />
-    <!-- <citiesList /> -->
+<!-- <div id="app"> -->
+<b-container >
+  <b-row>
 
-    <forecast />
-  </div>
+    <b-col>
+      <div id="main">
+      <currentWeather />
+      <weatherSearch />
+      </div>
+    </b-col>
+
+    <b-col>
+      <Visualisation />
+    </b-col>
+    </b-row>
+    <b-row>
+      <b-col>     
+        <forecast />
+      </b-col>      
+    </b-row> 
+  
+</b-container>
+<!-- </div> -->
 </template>
 
 <script>
@@ -43,12 +57,12 @@ export default {
 </script>
 
 <style>
-#app {
+#main {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  /* text-align: center; */
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 </style>

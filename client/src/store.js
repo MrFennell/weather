@@ -9,6 +9,7 @@ import moment from 'moment'
 export default new Vuex.Store({
     state:{
         location: {},
+        loaded: false
     },
     getters: {
         dayList: (state) => {
@@ -76,6 +77,9 @@ export default new Vuex.Store({
         setLocation(state, location){
             state.location = location;
         },
+        setLoaded(state, loaded){
+            state.loaded = loaded;
+        },
         setUserLocation(state, userLocation){
             state.userLocation = userLocation;
         },
@@ -92,6 +96,7 @@ export default new Vuex.Store({
         async getLocation({commit}){
             const response = await axios.get('/getLocation')
             commit('setLocation', response.data);
+            commit('setLoaded', true);
         },
         async getUserLocation({commit}){
             const response = await axios.get('/getUserLocation')

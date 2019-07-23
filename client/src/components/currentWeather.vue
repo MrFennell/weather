@@ -1,7 +1,7 @@
 <template>
-    <div v-if="location">
+    <div v-if="$store.state.loaded">
         <h1>{{location.name}}</h1>
-        <p v-if="location.sys.country">{{location.sys.country}}</p>
+        <p v-if="location.sys.country.length > 0">{{location.sys.country}}</p>
         <img :src="'http://openweathermap.org/img/wn/' + location.weather[0].icon + '@2x.png'">
         <p>{{location.weather[0].description}}</p>
         

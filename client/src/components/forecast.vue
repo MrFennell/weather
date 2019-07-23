@@ -1,10 +1,10 @@
 <template>
-<div>
+<div v-if="$store.state.loaded">
       
-    <ul class="forecastTabs">
-      <li v-on:click="setDay('')" class="tab" v-bind:class="{ 'active': activeTab === ''}">Full Forecast</li>   
+    <ul class="nav nav-tabs">
+      <li class="nav-item"><a v-on:click="setDay('')" class="nav-link" v-bind:class="{ 'active': activeTab === ''}">Full Forecast</a></li>   
       <div v-for="(forecast, index) in forecastsByDay" v-bind:key="forecast.dt">
-          <li v-on:click="setDay([index][0])" class="tab" v-bind:class="{ 'active': activeTab === index}">{{forecast[0].dt_txt | weekday}}</li>
+          <li class="nav-item"><a v-on:click="setDay([index][0])" class="nav-link" v-bind:class="{ 'active': activeTab === index}">{{forecast[0].dt_txt | weekday}}</a></li>
       </div>
     </ul>
 
@@ -96,12 +96,6 @@ export default {
           const flist = this.$store.state.location.list;
           const day = flist => moment(flist.dt_txt).format('dddd');
           const days = _.groupBy(flist, day);
-          
-          //get number of days
-          // let numberOfDays = 0
-          // Object.values(days).forEach((value) => {
-          //    numberOfDays++;
-          // })
           
           //get array of days
           let dayNames = Object.keys(days);

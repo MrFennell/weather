@@ -1,6 +1,6 @@
 <template>
     <div>
-      <chart :chart-data="datacollection"></chart>
+      <chart :chart-data="datacollection" :options="options"></chart>
     </div>
 </template>
 <script>
@@ -13,6 +13,7 @@
     data() {
       return {
         datacollection: null,
+        options: null
       }
     },
     computed: {
@@ -44,7 +45,30 @@
             }
             
           ]
-        };
+        },
+        this.options = { //Chart.js options
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    },
+                    gridLines: {
+                        display: true
+                    }
+                }],
+                xAxes: [{
+                    gridLines: {
+                        display: false
+                    }
+                }]
+            },
+            legend: {
+                display: true
+            },
+            responsive: true,
+            maintainAspectRatio: false
+        }
+        
       },
     }
   };
