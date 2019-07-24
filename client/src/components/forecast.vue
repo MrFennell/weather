@@ -73,7 +73,7 @@ const _ = require('lodash');
 import moment from 'moment'
 
 export default {
-  name: 'forecast',
+  name: 'Forecast',
   data(){
     return{
       currentDay: '',

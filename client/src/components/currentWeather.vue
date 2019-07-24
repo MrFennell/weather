@@ -15,7 +15,7 @@
 // import axios from 'axios'
 // import { mapGetters } from 'vuex'
 export default {
-  name: 'currentWeather',
+  name: 'CurrentWeather',
   computed: {
       location(){
           return this.$store.state.location;
@@ -45,5 +45,8 @@ li {
 }
 a {
   color: #42b983;
+}
+#temp-average{
+  font-size: 2.5em;
 }
 </style>

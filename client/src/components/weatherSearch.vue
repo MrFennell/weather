@@ -1,36 +1,42 @@
 <template>
 <div>
-
-     <b-card bg-variant="light">
+    <p v-if="minimized === true" @click="minimized=false"><a>Search for another city.</a></p>
+  
+    <b-card v-if="minimized === false" bg-variant="light">
     <form @submit.prevent="search" enctype="multipart/form-data" id="search">
-       
+    <b-button-close @click="minimized=true">&times;</b-button-close>
       <b-form-group
         label="Search for another city."
         label-for="citySearch"
       >
+        
+        <b-input-group>
+          <b-form-input v-model="city" id="citySearch" name="city"></b-form-input>
+          <b-input-group-append>
+            <b-dropdown id="unitDropdown" v-bind:text="tempUnit" v-model="tempUnit">
+              <b-dropdown-item id="imperial" @click="tempUnit = 'Imperial'">Imperial</b-dropdown-item>
+              <b-dropdown-item id="metric" @click="tempUnit = 'Metric'">Metric</b-dropdown-item>
+              <b-dropdown-item id="kelvin" @click="tempUnit = 'Kelvin'" >Kelvin</b-dropdown-item>
+            </b-dropdown>
+            <b-button type="submit" id="input-horizontal" value="search">Search</b-button>
+          </b-input-group-append>
+          
 
-          <b-input-group>
-            <b-form-input v-model="city" id="citySearch" name="city"></b-form-input>
-              <b-input-group-append>
-                <b-dropdown id="unitDropdown" v-bind:text="tempUnit" v-model="tempUnit">
-                  <b-dropdown-item id="imperial" @click="tempUnit = 'Imperial'">Imperial</b-dropdown-item>
-                  <b-dropdown-item id="metric" @click="tempUnit = 'Metric'">Metric</b-dropdown-item>
-                  <b-dropdown-item id="kelvin" @click="tempUnit = 'Kelvin'" >Kelvin</b-dropdown-item>
-                </b-dropdown>
-              <b-button type="submit" id="input-horizontal" value="search">Search</b-button>
-              </b-input-group-append>
-            </b-input-group>
-          <p v-if="error">{{error}}</p>
-      </b-form-group>
+        </b-input-group>
+        <p v-if="error">{{error}}</p>
+    </b-form-group>
     </form>
   </b-card>
+
+
 </div>
+
 </template>
 
 <script>
 // import axios from 'axios'
 export default {
-  name: 'weatherSearch',
+  name: 'WeatherSearch',
   props: {
  
   },
@@ -38,7 +44,8 @@ export default {
     return{
       city: '',
       tempUnit: 'Imperial',
-      error:null
+      error:null,
+      minimized: true
     }
   },
   methods: {

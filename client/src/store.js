@@ -45,6 +45,7 @@ export default new Vuex.Store({
                 dayName = dayNames[i] //get current day name
                 currentDay = days[dayName]  //get day as array from days obj using name
                 averageHighestTemp = 0;
+                averageLowestTemp = 0;
                 //pull each day's array of temp as its own array.
                 for (let d=0; d < currentDay.length; d++){
                     tempArray.push(currentDay[d].main.temp);
@@ -66,7 +67,6 @@ export default new Vuex.Store({
         },
         dataForChart: (state, getters) => {
             let labels = getters.dayList;
-
             let highestDailyAverageTemp = getters.tempByDay[0]
             let lowestDailyAverageTemp = getters.tempByDay[1]
             return {labels, highestDailyAverageTemp, lowestDailyAverageTemp};
