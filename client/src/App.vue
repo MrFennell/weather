@@ -11,7 +11,8 @@
     </b-col>
 
     <b-col>
-      <Visualisation />
+      <!-- <TempChart /> -->
+      <ChartContainer/>
     </b-col>
     </b-row>
     <b-row>
@@ -28,7 +29,8 @@
 
 import currentWeather from './components/currentWeather.vue'
 import weatherSearch from './components/weatherSearch.vue'
- import Visualisation from './components/chart/Visualisation.vue';
+// import TempChart from './components/chart/TempChart.vue';
+import ChartContainer from './components/chart/ChartContainer.vue';
 // import citiesList from './components/citiesList.vue'
 import forecast from './components/forecast.vue'
 
@@ -38,7 +40,8 @@ export default {
   components: {
     weatherSearch,
     currentWeather,
-    Visualisation,
+    // TempChart,
+    ChartContainer,
     forecast,
   },
   mounted() {

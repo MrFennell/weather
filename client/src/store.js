@@ -9,7 +9,8 @@ import moment from 'moment'
 export default new Vuex.Store({
     state:{
         location: {},
-        loaded: false
+        loaded: false,
+        chartRender: false
     },
     getters: {
         dayList: (state) => {
@@ -86,6 +87,9 @@ export default new Vuex.Store({
         getUserWeather(state, userWeather){
             state.userWeather = userWeather;
         },
+        setChartRender(state, chartRender){
+            state.chartRender = chartRender;
+        },
         setCities(state, cities){
             state.cities = cities;
         },
@@ -98,6 +102,7 @@ export default new Vuex.Store({
             commit('setLocation', response.data);
             commit('setLoaded', true);
         },
+
         async getUserLocation({commit}){
             const response = await axios.get('/getUserLocation')
             commit('setLocation', response.data);
@@ -106,7 +111,9 @@ export default new Vuex.Store({
             const response = await axios.get('/getUserWeather')
             commit('setUserWeather', response.data);
         },
-
+        async setChartRender({commit}){
+            commit('setChartRender', true);
+        },
         async searchCity({commit}, payload){
             const response = await axios.post('/searchCity', payload)
             commit('setLocation', response.data);

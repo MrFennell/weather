@@ -1,30 +1,39 @@
 <template>
     <div>
-      <chart :chart-data="datacollection" :options="options"></chart>
+      <LineChart :chart-data="datacollection" :options="options" ></LineChart>
     </div>
 </template>
 <script>
-  import Chart from "@/components/chart/Chart.js";
+  import LineChart from "@/components/chart/chartTypes/LineChart.js";
+
   export default {
-    name: 'Visualisation',
+    name: 'TempChartLine',
     components: {
-      Chart
+      LineChart
     },
     data() {
       return {
         datacollection: null,
-        options: null
+        options: null,
       }
     },
     computed: {
       chartData(){
         return this.$store.getters.dataForChart
+        
       }
     },
+    mounted(){
+      if (this.datacollection === null){
+          this.fillData();
+      }
+    },
+    
     watch: {
       chartData: function(newValue){
         if (newValue){
           this.fillData();
+          
         }
       }
     },
@@ -43,7 +52,6 @@
               backgroundColor: "#f87979",
               data: this.chartData.highestDailyAverageTemp
             }
-            
           ]
         },
         this.options = { //Chart.js options
@@ -67,9 +75,8 @@
             },
             responsive: true,
             maintainAspectRatio: false
-        }
-        
-      },
+        }        
+      }
     }
   };
 </script>

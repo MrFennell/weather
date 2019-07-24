@@ -1,20 +1,29 @@
 <template>
 <div>
-    <p v-if="error">{{error}}</p>
-    <form @submit.prevent="search" enctype="multipart/form-data" id="search">
-        <input v-model="city" name="city">
 
-        <input type="submit" value="search">
-          <br>
-        <input type="radio" id="imperial" value="imperial" v-model="tempUnit">
-        <label for="imperial">Imperial</label>
-        <br>
-        <input type="radio" id="metric" value="metric" v-model="tempUnit">
-        <label for="metric">Metric</label>
-        <br>
-        <input type="radio" id="kelvin" value="kelvin" v-model="tempUnit">
-        <label for="kelvin">Kelvin</label>
+     <b-card bg-variant="light">
+    <form @submit.prevent="search" enctype="multipart/form-data" id="search">
+       
+      <b-form-group
+        label="Search for another city."
+        label-for="citySearch"
+      >
+
+          <b-input-group>
+            <b-form-input v-model="city" id="citySearch" name="city"></b-form-input>
+              <b-input-group-append>
+                <b-dropdown id="unitDropdown" v-bind:text="tempUnit" v-model="tempUnit">
+                  <b-dropdown-item id="imperial" @click="tempUnit = 'Imperial'">Imperial</b-dropdown-item>
+                  <b-dropdown-item id="metric" @click="tempUnit = 'Metric'">Metric</b-dropdown-item>
+                  <b-dropdown-item id="kelvin" @click="tempUnit = 'Kelvin'" >Kelvin</b-dropdown-item>
+                </b-dropdown>
+              <b-button type="submit" id="input-horizontal" value="search">Search</b-button>
+              </b-input-group-append>
+            </b-input-group>
+          <p v-if="error">{{error}}</p>
+      </b-form-group>
     </form>
+  </b-card>
 </div>
 </template>
 
@@ -28,7 +37,7 @@ export default {
   data() {
     return{
       city: '',
-      tempUnit: 'imperial',
+      tempUnit: 'Imperial',
       error:null
     }
   },
