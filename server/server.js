@@ -32,7 +32,12 @@ app.get('/getLocation', async (req, res) => {
             
             //copy the forecast list itself, it's all we need from forecast data
             const forecast = JSON.parse(forecastStr)
+           
             const forecastList = forecast.list;
+            
+            //add the unit of measure to the response obj
+            const tempScale = 'Imperial';
+            response.tempScale = tempScale;
 
             //add forecast to current weather
             response.list = forecastList;            
@@ -62,6 +67,10 @@ app.post('/searchCity', async (req, res) => {
         //copy the forecast list itself, it's all we need from forecast data
         const forecast = JSON.parse(forecastStr)
         const forecastList = forecast.list;
+
+        //add the unit of measure to the response obj
+        const tempScale = tempUnit;
+        response.tempScale = tempScale;
 
         //add forecast to current weather
         response.list = forecastList;           

@@ -1,12 +1,19 @@
 <template>
 <div v-if="$store.state.loaded">
       
-    <ul class="nav nav-tabs" >
+    <ul class="nav nav-tabs justify-content-center" >
       <li class="nav-item"><a v-on:click="setDay('')" class="nav-link" v-bind:class="{ 'active': activeTab === ''}">Full Forecast</a></li>   
       <div v-for="(forecast, index) in forecastsByDay" v-bind:key="forecast.dt">
           <li class="nav-item"><a v-on:click="setDay([index][0])" class="nav-link" v-bind:class="{ 'active': activeTab === index}">{{forecast[0].dt_txt | weekday}}</a></li>
       </div>
     </ul>
+
+    <!-- <b-tabs align="center">
+      <b-tab v-on:click="setDay('')" class="nav-link" v-bind:class="{ 'active': activeTab === ''}">Full Forecast</b-tab>   
+      <div v-for="(forecast, index) in forecastsByDay" v-bind:key="forecast.dt">
+          <b-tab v-on:click="setDay([index][0])" class="nav-link" v-bind:class="{ 'active': activeTab === index}">{{forecast[0].dt_txt | weekday}}</b-tab>
+      </div>
+    </b-tabs> -->
 
   <div id="forecast-list-container">
       <div id="v-for-forecastsFilter" >
@@ -144,6 +151,9 @@ export default {
 .slide-fade-leave-active {
   transition: all .5s ease
 }
+.nav-tabs li {
+    cursor: pointer;
+}
 .slide-fade-enter, .slide-fade-leave-to
 /* .slide-fade-leave-active below version 2.1.8 */ {
   transform: translateX(100%);
@@ -161,10 +171,6 @@ export default {
   width:100%;
   border-bottom: 1px solid black;
   padding-bottom: 5px;
-}
-#forecastTabs li{
-  
-
 }
 #icon{
    display: flex;

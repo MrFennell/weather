@@ -7,12 +7,14 @@
         </div>
         <div id="temp-container">
          <p id="temp-average">{{location.main.temp | round}}&deg;</p>
+          
           <div id="temp-subheadings">
             <div>
             
             <p id="temp-max">{{location.main.temp_max | round}}&deg;</p>
             <p id="temp-min">{{location.main.temp_min | round}}&deg;</p>
             </div>
+
           </div>
            
         </div>
@@ -20,6 +22,7 @@
             <p id="country" v-if="location.sys.country.length > 0">Country: {{location.sys.country}}</p>
             <p>Humidity:  {{location.main.humidity}}%</p>
             <p>Clouds:  {{location.clouds.all}}%</p>
+            <p>Wind Speed:  {{location.wind.speed}} {{this.windUom}}</p>
             <p id="coord-lat">Latitude: {{location.coord.lat}}</p>
             <p id="coord-lat">Longitude: {{location.coord.lon}}</p>
              
@@ -36,6 +39,15 @@ export default {
   computed: {
       location(){
           return this.$store.state.location;
+      },
+      windUom(){
+          const tempScale = this.$store.state.location.tempScale
+          if (tempScale === 'Imperial'){
+            return 'miles/hour'
+          }
+          else{
+            return 'meter/sec'
+          }
       }
   },
   filters: {
@@ -43,6 +55,13 @@ export default {
       if (!value) return ''
       return Math.round(value);
     }
+    // ,
+    // windUom: function(){
+    //   const tempScale = this.$store.state.location.tempScale
+    //   if (tempScale === 'Imperial'){
+    //     return 'mph'
+    //   }
+    // }
   }
 }
 </script>
@@ -87,5 +106,13 @@ a {
 }
 #temp-average{
   font-size: 2.5em;
+}
+#location-description{
+  
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: max-content;
+    margin: auto;
+    justify-items: start;
 }
 </style>
