@@ -20,6 +20,7 @@
         <div v-for="(array, index) in forecastsByDay" v-bind:key="array.dt">
             <!-- {{forecastsByDay[0]}} -->
             <transition name="slide-fade">
+              
                 <div v-if="currentDay === [index][0]">
                     <div class="weekday-header"><p>{{array[0].dt_txt | weekday}}</p></div>
                     <div class="forecast-list" v-for="forecast in array" v-bind:key="forecast.dt">
@@ -59,7 +60,7 @@
                 <div id="details">
                   <p>{{forecast.weather[0].description}}</p>
                   <p>Humidity: {{forecast.main.humidity | round}}%</p>
-                  <p>Wind: {{forecast.wind.speed | round}} mph</p>
+                  <p>Wind: {{forecast.wind.speed | round}} {{windUom}}</p>
                   <p>Cloudiness: {{forecast.clouds.all | round}}%</p>
                 </div>
               </div>
@@ -107,6 +108,15 @@ export default {
           //get array of days
           let dayNames = Object.keys(days);
           return dayNames[0];
+      },
+      windUom(){
+          const tempScale = this.$store.state.location.tempScale
+          if (tempScale === 'Imperial'){
+            return 'miles/hour'
+          }
+          else{
+            return 'meter/sec'
+          }
       }
   },
   filters: {
@@ -123,7 +133,7 @@ export default {
       return moment(String(value)).format('dddd')
     },
     round: function (value){
-      if (!value) return ''
+      if (!value) return 0
       return Math.round(value);
     }
   },
@@ -139,12 +149,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-.active {
-  font-weight: 700;
-}
-.selected {
-  background: black;
-}
+
 .slide-fade-enter-active {
   transition: all .5s ease;
 }
@@ -162,14 +167,15 @@ export default {
 .weekday-header{
   display: flex;
   width:100%;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #dee2e6;
   align-items: center;
   height: 100px;
+  text-align: center;
 }
 .forecast-list{
   display: flex;
   width:100%;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #dee2e6;
   padding-bottom: 5px;
 }
 #icon{

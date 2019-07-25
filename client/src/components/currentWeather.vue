@@ -21,13 +21,11 @@
         <div id="location-description">
             <p id="country" v-if="location.sys.country.length > 0">Country: {{location.sys.country}}</p>
             <p>Humidity:  {{location.main.humidity}}%</p>
-            <p>Clouds:  {{location.clouds.all}}%</p>
+            <p>Cloudiness:  {{location.clouds.all}}%</p>
             <p>Wind Speed:  {{location.wind.speed}} {{this.windUom}}</p>
             <p id="coord-lat">Latitude: {{location.coord.lat}}</p>
             <p id="coord-lat">Longitude: {{location.coord.lon}}</p>
-             
-        </div>
-        
+        </div>        
     </div>
 </template>
 

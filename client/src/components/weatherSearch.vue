@@ -18,7 +18,7 @@
               <b-dropdown-item id="metric" @click="tempUnit = 'Metric'">Metric</b-dropdown-item>
               <b-dropdown-item id="kelvin" @click="tempUnit = 'Kelvin'" >Kelvin</b-dropdown-item>
             </b-dropdown>
-            <b-button type="submit" id="input-horizontal" value="search">Search</b-button>
+            <b-button variant="primary" type="submit" id="input-horizontal" value="search">Search</b-button>
           </b-input-group-append>
           
 

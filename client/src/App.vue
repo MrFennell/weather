@@ -6,7 +6,9 @@
       <b-col>
         <div id="main">
         <currentWeather />
-        <weatherSearch />
+        <div id="weather-search">
+          <weatherSearch />
+        </div>
         </div>
       </b-col>
     
@@ -37,6 +39,7 @@ import ChartContainer from './components/chart/ChartContainer.vue';
 import Forecast from './components/Forecast.vue'
 
 import { mapGetters } from 'vuex'
+
 export default {
   name: 'app',
   components: {
@@ -61,13 +64,27 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+  @import 'assets/custom.scss';
+  @import '~bootstrap/scss/bootstrap.scss';
+  @import '~bootstrap-vue/src/index.scss';
+  body {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  $blue: #357695;
 #main {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  
+
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
+#weather-search{
+  margin-top: 2em;
+    margin-bottom: 2em;
+
+}
+
 </style>

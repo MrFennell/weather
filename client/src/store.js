@@ -11,7 +11,7 @@ export default new Vuex.Store({
         chartRender: false
     },
     getters: {
-        dayList: (state) => { //return array of day names in order
+        dayList: (state) => { //return array of day names in order, no data in names just strings
             const flist = state.location.list;
             const day = flist => moment(flist.dt_txt).format('dddd');
             const days = _.groupBy(flist, day);
