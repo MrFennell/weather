@@ -6,7 +6,7 @@
 <script>
 import LineChart from "@/components/chart/chartTypes/LineChart.js";
 export default {
-  name: 'TempChartLine',
+  name: 'HumChartLine',
   components: {
     LineChart
   },
@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     chartData(){
-      return this.$store.getters.dataForTempChart
+      return this.$store.getters.dataForHumChart
     }
   },
   mounted(){
@@ -26,12 +26,10 @@ export default {
         this.fillData();
     }
   },
-  
   watch: {
     chartData: function(newValue){
       if (newValue){
         this.fillData();
-        
       }
     }
   },
@@ -41,28 +39,24 @@ export default {
         labels: this.chartData.labels,
         datasets: [
           {
-            label: "Lowest Temp",
+            label: "Lowest Humidity",
             backgroundColor: "#357695",
-            data: this.chartData.lowestDailyAverageTemp
+            data: this.chartData.lowestDailyAverageHum
           },
           {
-            label: "Highest Temp",
+            label: "Highest Humidity",
             backgroundColor: "#ec6e4c",
-            data: this.chartData.highestDailyAverageTemp
+            data: this.chartData.highestDailyAverageHum
           }
         ]
       },
       this.options = { //Chart.js options
           scales: {
               yAxes: [{
-                  // scaleLabel:{
-                  //   display: true,
-                  //   labelString: 'Degrees'
-                  // },
                   ticks: {
                       beginAtZero: true,
                       callback: function(value) {
-                      return value + '\u00B0';
+                      return value + '%';
                   }
                   },
                   gridLines: {

@@ -1,13 +1,30 @@
 <template>
     <div v-if="$store.state.loaded">
         <h1>{{location.name}}</h1>
-        <p v-if="location.sys.country.length > 0">{{location.sys.country}}</p>
-        <img :src="'http://openweathermap.org/img/wn/' + location.weather[0].icon + '@2x.png'">
-        <p>{{location.weather[0].description}}</p>
+        <div id="current-weather">
+          <img :src="'http://openweathermap.org/img/wn/' + location.weather[0].icon + '@2x.png'">
+            <p id="icon-description">{{location.weather[0].description}}</p>
+        </div>
+        <div id="temp-container">
+         <p id="temp-average">{{location.main.temp | round}}&deg;</p>
+          <div id="temp-subheadings">
+            <div>
+            
+            <p id="temp-max">{{location.main.temp_max | round}}&deg;</p>
+            <p id="temp-min">{{location.main.temp_min | round}}&deg;</p>
+            </div>
+          </div>
+           
+        </div>
+        <div id="location-description">
+            <p id="country" v-if="location.sys.country.length > 0">Country: {{location.sys.country}}</p>
+            <p>Humidity:  {{location.main.humidity}}%</p>
+            <p>Clouds:  {{location.clouds.all}}%</p>
+            <p id="coord-lat">Latitude: {{location.coord.lat}}</p>
+            <p id="coord-lat">Longitude: {{location.coord.lon}}</p>
+             
+        </div>
         
-        <p id="temp-average">{{location.main.temp | round}}&deg;</p>
-        <p id="temp-max">Highest temp:{{location.main.temp_max | round}}&deg;</p>
-        <p id="temp-min">Lowest temp:{{location.main.temp_min | round}}&deg;</p>
     </div>
 </template>
 
@@ -45,6 +62,28 @@ li {
 }
 a {
   color: #42b983;
+}
+#icon-description{
+  margin-top: -10px;
+}
+#temp-max{
+  color: #ec6e4c;
+}
+#temp-min{
+  color: #357695;
+}
+#temp-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#temp-subheadings{
+  display:flex;
+
+}
+#temp-subheadings p{
+  margin:0;
+  
 }
 #temp-average{
   font-size: 2.5em;

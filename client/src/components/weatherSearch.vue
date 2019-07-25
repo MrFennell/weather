@@ -1,6 +1,6 @@
 <template>
 <div>
-    <p v-if="minimized === true" @click="minimized=false"><a>Search for another city.</a></p>
+    <b-button v-if="minimized === true" @click="minimized=false"><a>Search for another city.</a></b-button>
   
     <b-card v-if="minimized === false" bg-variant="light">
     <form @submit.prevent="search" enctype="multipart/form-data" id="search">

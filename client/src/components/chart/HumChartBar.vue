@@ -7,10 +7,11 @@
   import BarChart from "@/components/chart/chartTypes/BarChart.js";
 
   export default {
-    name: 'TempChartBar',
+    name: 'HumChartBar',
     components: {
       BarChart,
     },
+    props: ['chartType'],
     data() {
       return {
         datacollection: null,
@@ -19,7 +20,7 @@
     },
     computed: {
       chartData(){
-        return this.$store.getters.dataForTempChart
+        return this.$store.getters.dataForHumChart
       }
     },
     watch: {
@@ -27,6 +28,7 @@
         if (newValue){
           this.setChartRender()
           this.fillData();
+                   
         }
       }
     },
@@ -44,14 +46,14 @@
           labels: this.chartData.labels,
           datasets: [
             {
-              label: "Lowest Temp",
+              label: "Lowest Humidity",
               backgroundColor: "#357695",
-              data: this.chartData.lowestDailyAverageTemp
+              data: this.chartData.lowestDailyAverageHum
             },
             {
-              label: "Highest Temp",
+              label: "Highest Humidity",
               backgroundColor: "#ec6e4c",
-              data: this.chartData.highestDailyAverageTemp
+              data: this.chartData.highestDailyAverageHum
             }
             
           ]
@@ -59,14 +61,10 @@
         this.options = { //Chart.js options
             scales: {
                 yAxes: [{
-                  //  scaleLabel:{
-                  //     display: true,
-                  //     labelString: 'Degrees'
-                  //   },
                     ticks: {
                         beginAtZero: true,
                         callback: function(value) {
-                        return value + '\u00B0';
+                        return value + '%';
                         }
                     },
                     gridLines: {
