@@ -125,12 +125,6 @@ export default new Vuex.Store({
         setLoaded(state, loaded){
             state.loaded = loaded;
         },
-        setUserLocation(state, userLocation){
-            state.userLocation = userLocation;
-        },
-        getUserWeather(state, userWeather){
-            state.userWeather = userWeather;
-        },
         setChartRender(state, chartRender){
             state.chartRender = chartRender;
         },
@@ -144,14 +138,6 @@ export default new Vuex.Store({
             const response = await axios.get('/getLocation')
             commit('setLocation', response.data);
             commit('setLoaded', true);
-        },
-        async getUserLocation({commit}){
-            const response = await axios.get('/getUserLocation')
-            commit('setLocation', response.data);
-        },
-        async getUserWeather({commit}){
-            const response = await axios.get('/getUserWeather')
-            commit('setUserWeather', response.data);
         },
         async setChartRender({commit}){
             commit('setChartRender', true);

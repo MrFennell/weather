@@ -1,5 +1,4 @@
 <template>
-<!-- <div id="app"> -->
 <b-container >
   <b-row>
 
@@ -15,7 +14,6 @@
     </b-row>
      <b-row>
     <b-col>
-      <!-- <TempChart /> -->
       <ChartContainer/>
     </b-col>
     </b-row>
@@ -26,14 +24,12 @@
     </b-row> 
   
 </b-container>
-<!-- </div> -->
 </template>
 
 <script>
 
 import CurrentWeather from './components/CurrentWeather.vue'
 import WeatherSearch from './components/WeatherSearch.vue'
-// import TempChart from './components/chart/TempChart.vue';
 import ChartContainer from './components/chart/ChartContainer.vue';
 // import citiesList from './components/citiesList.vue'
 import Forecast from './components/Forecast.vue'
@@ -45,7 +41,6 @@ export default {
   components: {
     WeatherSearch,
     CurrentWeather,
-    // TempChart,
     ChartContainer,
     Forecast,
   },
@@ -75,15 +70,13 @@ export default {
   }
   $blue: #357695;
 #main {
-  
-
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
 #weather-search{
   margin-top: 2em;
-    margin-bottom: 2em;
+  margin-bottom: 2em;
 
 }
 

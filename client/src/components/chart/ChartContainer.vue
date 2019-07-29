@@ -18,6 +18,7 @@
 
             <b-form-radio-group
               v-model="chartType" 
+              id="chart-type-toggle"
               :options="options"
               buttons
               button-variant="outline-primary"
@@ -59,5 +60,8 @@
 <style>
 .chart-switch{
       text-align: center;
+}
+#chart-type-toggle label{
+  cursor: pointer;
 }
 </style>
