@@ -51,17 +51,18 @@ app.get('/getLocation', async (req, res) => {
     }
 });
 
-app.post('/searchCity', async (req, res) => {
-    const city = req.body.city;
+app.post('/getCityWeather', async (req, res) => {
+    const lat = req.body.lat;
+    const lon = req.body.lon;
     const tempUnit = req.body.tempUnit;
     try{
         //get current weather api
-        const responseWeather = await axios.get('https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+process.env.VUE_APP_WeatherAPI+'&units='+tempUnit);
+        const responseWeather = await axios.get('https://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&units='+tempUnit+'&appid='+process.env.VUE_APP_WeatherAPI);
         const responseWeatherStr = JSON.stringify(responseWeather.data, null, 4);
         const response = JSON.parse(responseWeatherStr)
         
         //get weather forecast api
-        const responseForecast = await axios.get('https://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid='+process.env.VUE_APP_WeatherAPI+'&units='+tempUnit);
+        const responseForecast = await axios.get('https://api.openweathermap.org/data/2.5/forecast?lat='+lat+'&lon='+lon+'&units='+tempUnit+'&appid='+process.env.VUE_APP_WeatherAPI);
         const forecastStr = (JSON.stringify(responseForecast.data, null, 4))
     
         //copy the forecast list itself, it's all we need from forecast data
@@ -82,6 +83,39 @@ app.post('/searchCity', async (req, res) => {
     }
 });
 
+// app.post('/getCityWeather', async (req, res) => {
+//     const city = req.body.city;
+//     const lat = req.body.lat;
+//     const lon = req.body.lon;
+//     const tempUnit = req.body.tempUnit;
+//     try{
+//         //get current weather api
+//         const responseWeather = await axios.get('https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+process.env.VUE_APP_WeatherAPI+'&units='+tempUnit);
+//         const responseWeatherStr = JSON.stringify(responseWeather.data, null, 4);
+//         const response = JSON.parse(responseWeatherStr)
+        
+//         //get weather forecast api
+//         const responseForecast = await axios.get('https://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid='+process.env.VUE_APP_WeatherAPI+'&units='+tempUnit);
+//         const forecastStr = (JSON.stringify(responseForecast.data, null, 4))
+    
+//         //copy the forecast list itself, it's all we need from forecast data
+//         const forecast = JSON.parse(forecastStr)
+//         const forecastList = forecast.list;
+
+//         //add the unit of measure to the response obj
+//         const tempScale = tempUnit;
+//         response.tempScale = tempScale;
+
+//         //add forecast to current weather
+//         response.list = forecastList;           
+        
+//         res.send(JSON.stringify(response, null, 4)); 
+//     }       
+//         catch(err){
+//         console.log(err);
+//     }
+// });
+
 app.get('/getforecast', async (req, res) => {
     const userLoc = await axios.get('http://ip-api.com/json/')
     const jsonUserLoc = (JSON.stringify(userLoc.data, null, 4))
@@ -101,14 +135,27 @@ app.get('/getforecast', async (req, res) => {
     }
 });
 
-// app.get('/getCities', async (req, res) => {
-//     var fs = require("fs");
-//     var contents = fs.readFileSync("city.list.json");
-//     var jsonContent = JSON.parse(contents);
-//     var str = "Novinki";
+app.post('/searchCityList', async (req, res) => {
+    let fs = require("fs");
+    const tempUnit = req.body.tempUnit;
+    const city = req.body.city;
+    let citiesReturned = [];
+    let cityName = '';
+    let contents = JSON.parse(fs.readFileSync("city.list.json"));
+    
+    for(i=0;i<contents.length; i++){
+        cityName = contents[i].name
+        if (cityName === city){
+            citiesReturned.push(contents[i]);
+        }
+    }    
 
-//     res.end(JSON.stringify(cities, null, 4)); 
-// });
+    //add the unit of measure to the response obj
+    const tempScale = tempUnit;
+    citiesReturned.tempScale = tempScale;
+
+    res.end(JSON.stringify(citiesReturned, null, 4)); 
+});
 
 app.use('/static', express.static(path.join(__dirname,"/dist/"))); 
 app.get('/', function(req,res) {

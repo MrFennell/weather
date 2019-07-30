@@ -48,13 +48,28 @@ export default {
       minimized: true
     }
   },
+  computed: {
+    uom(){
+      return this.tempUnit;
+    }
+  },
+  watch: {
+    uom: function(newValue){
+      if (newValue){
+        this.setTempUnit();
+      }
+    }
+  },
   methods: {
+    setTempUnit(){
+      this.$store.dispatch('setUom', this.uom)
+    },
     search(){
       this.error = null;
       const city = this.city;
       if(city !== ''){
         try{
-          this.$store.dispatch('searchCity',
+          this.$store.dispatch('searchCityList',
           { city: this.city, tempUnit: this.tempUnit})
         }catch(err){
           (error) => this.error = error.response.data.error

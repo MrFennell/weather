@@ -59,7 +59,7 @@
 </script>
 <style>
 .chart-switch{
-      text-align: center;
+  text-align: center;
 }
 #chart-type-toggle label{
   cursor: pointer;

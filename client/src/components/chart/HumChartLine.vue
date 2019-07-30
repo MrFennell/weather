@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div >
       <LineChart :chart-data="datacollection" :options="options" ></LineChart>
     </div>
 </template>
@@ -18,12 +18,15 @@ export default {
   },
   computed: {
     chartData(){
-      return this.$store.getters.dataForHumChart
+        return this.$store.getters.dataForHumChart
     }
   },
   mounted(){
     if (this.datacollection === null){
         this.fillData();
+    }
+    if(this.$store.state.loaded){
+      this.fillData();
     }
   },
   watch: {

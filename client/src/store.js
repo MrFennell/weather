@@ -7,6 +7,8 @@ import moment from 'moment'
 export default new Vuex.Store({
     state:{
         location: {},
+        cities: [],
+        uom: 'Imperial',
         loaded: false,
         chartRender: false
     },
@@ -130,6 +132,9 @@ export default new Vuex.Store({
         },
         setCities(state, cities){
             state.cities = cities;
+        },
+        setUom(state, uom){
+            state.uom = uom;
         }
     },
     actions: 
@@ -142,13 +147,23 @@ export default new Vuex.Store({
         async setChartRender({commit}){
             commit('setChartRender', true);
         },
-        async searchCity({commit}, payload){
-            const response = await axios.post('/searchCity', payload)
-            commit('setLocation', response.data);
+        async setUom({commit}, payload){
+            commit('setUom', payload);
         },
-        async getCities({commit}){
-            const response = await axios.get('/getCities')
+        async searchCityList({commit}, payload){
+            const response = await axios.post('/searchCityList', payload)
+            commit('setCities', response.data);
+            commit('setLoaded', false);
+        },
+        async getCityWeather({commit}, payload){
+            const response = await axios.post('/getCityWeather', payload)
             commit('setLocation', response.data);
+            commit('setLoaded', true);
         }
+        // async getCities({commit}, payload){
+        //     const response = await axios.post('/getCities', payload)
+        //     commit('setLocation', response.data);
+        //     commit('setLoaded', false);
+        // }
     }
 })

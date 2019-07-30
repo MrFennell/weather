@@ -28,12 +28,11 @@
         if (newValue){
           this.setChartRender()
           this.fillData();
-                   
         }
       }
     },
     mounted(){
-        if(this.$store.state.chartRender === true){
+        if(this.$store.state.chartRender === true){ //set to remove duplicate rendering at first load
           this.fillData();
         }
     },

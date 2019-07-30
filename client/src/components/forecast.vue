@@ -192,12 +192,12 @@ export default {
 }
 #details{
   text-align: start;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    min-width: 30%;
-    margin-left: auto;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  min-width: 30%;
+  margin-left: auto;
 }
 .temp{
   font-size: 2.5em;

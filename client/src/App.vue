@@ -6,15 +6,17 @@
         <div id="main">
         <currentWeather />
         <div id="weather-search">
-          <weatherSearch />
+          <weatherSearch /> 
+          <SearchResults />
         </div>
         </div>
       </b-col>
     
     </b-row>
      <b-row>
+    <!-- <b-col v-if="this.$store.state.loaded"> -->
     <b-col>
-      <ChartContainer/>
+      <ChartContainer />
     </b-col>
     </b-row>
     <b-row>
@@ -29,7 +31,8 @@
 <script>
 
 import CurrentWeather from './components/CurrentWeather.vue'
-import WeatherSearch from './components/WeatherSearch.vue'
+import WeatherSearch from './components/search/WeatherSearch.vue'
+import SearchResults from './components/search/SearchResults.vue'
 import ChartContainer from './components/chart/ChartContainer.vue';
 // import citiesList from './components/citiesList.vue'
 import Forecast from './components/Forecast.vue'
@@ -40,6 +43,7 @@ export default {
   name: 'app',
   components: {
     WeatherSearch,
+    SearchResults,
     CurrentWeather,
     ChartContainer,
     Forecast,
