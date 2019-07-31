@@ -1,7 +1,6 @@
 <template>
 <div>
     <b-button v-if="minimized === true" @click="minimized=false"><a>Search for another city.</a></b-button>
-  
     <b-card v-if="minimized === false" bg-variant="light">
     <form @submit.prevent="search" enctype="multipart/form-data" id="search">
     <b-button-close @click="minimized=true">&times;</b-button-close>
@@ -9,7 +8,6 @@
         label="Search for another city."
         label-for="citySearch"
       >
-        
         <b-input-group>
           <b-form-input v-model="city" id="citySearch" name="city"></b-form-input>
           <b-input-group-append>
@@ -20,15 +18,11 @@
             </b-dropdown>
             <b-button variant="primary" type="submit" id="input-horizontal" value="search">Search</b-button>
           </b-input-group-append>
-          
-
         </b-input-group>
         <p v-if="error">{{error}}</p>
     </b-form-group>
     </form>
   </b-card>
-
-
 </div>
 
 </template>
@@ -65,6 +59,7 @@ export default {
       this.$store.dispatch('setUom', this.uom)
     },
     search(){
+      this.minimized = true;
       this.error = null;
       const city = this.city;
       if(city !== ''){

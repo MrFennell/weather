@@ -27,11 +27,7 @@ export default new Vuex.Store({
             return days;
         },
         tempByDay: (state, getters) => {
-            // const flist = state.location.list;
-            // const day = flist => moment(flist.dt_txt).format('dddd');
-            // const days = _.groupBy(flist, day);     
             const days = getters.days
-            // let dayNames = Object.keys(days); 
             const dayNames = getters.dayList
             let dayName = '';
             let currentDay = [];
@@ -73,11 +69,7 @@ export default new Vuex.Store({
             return {labels, highestDailyAverageTemp, lowestDailyAverageTemp};
         },
         humidityByDay: (state, getters) => {
-            // const flist = state.location.list;
-            // const day = flist => moment(flist.dt_txt).format('dddd');
-            // const days = _.groupBy(flist, day);     
             const days = getters.days
-            // let dayNames = Object.keys(days); 
             const dayNames = getters.dayList
             let dayName = '';
             let currentDay = [];
@@ -160,10 +152,5 @@ export default new Vuex.Store({
             commit('setLocation', response.data);
             commit('setLoaded', true);
         }
-        // async getCities({commit}, payload){
-        //     const response = await axios.post('/getCities', payload)
-        //     commit('setLocation', response.data);
-        //     commit('setLoaded', false);
-        // }
     }
 })
