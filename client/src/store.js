@@ -132,7 +132,7 @@ export default new Vuex.Store({
     actions: 
     {
         async getLocation({commit}){
-            const response = await axios.get('/getLocation')
+            const response = await axios.get(process.env.VUE_APP_URL+'/getLocation')
             commit('setLocation', response.data);
             commit('setLoaded', true);
         },
@@ -143,12 +143,12 @@ export default new Vuex.Store({
             commit('setUom', payload);
         },
         async searchCityList({commit}, payload){
-            const response = await axios.post('/searchCityList', payload)
+            const response = await axios.post(process.env.VUE_APP_URL+'/searchCityList', payload)
             commit('setCities', response.data);
             commit('setLoaded', false);
         },
         async getCityWeather({commit}, payload){
-            const response = await axios.post('/getCityWeather', payload)
+            const response = await axios.post(process.env.VUE_APP_URL+'/getCityWeather', payload)
             commit('setLocation', response.data);
             commit('setLoaded', true);
         }

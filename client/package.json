@@ -13,6 +13,8 @@
     "bootstrap-vue": "^2.0.0-rc.27",
     "chart.js": "^2.8.0",
     "core-js": "^2.6.5",
+    "dotenv": "^8.0.0",
+    "jquery": "^1.9.1",
     "lodash": "^4.17.14",
     "moment": "^2.24.0",
     "node-sass": "^4.12.0",

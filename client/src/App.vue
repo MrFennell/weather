@@ -1,7 +1,6 @@
 <template>
 <b-container >
   <b-row>
-
       <b-col>
         <div id="main">
         <currentWeather />

@@ -1,3 +1,4 @@
+var cors = require('cors')
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require("axios");
@@ -9,9 +10,23 @@ app.set('views', './views');
 
 app.use(bodyParser.urlencoded({ extended: false }))
 
+app.options('*', cors())
+
 app.use(bodyParser.json())
 
-app.get('/getLocation', async (req, res) => {
+var whitelist = ['https://vigilant-lamarr-c21282.netlify.com', 'http://localhost:8080', 'localhost:8080']
+
+var corsOptionsDelegate = function (req, callback) {
+    var corsOptions;
+    if (whitelist.indexOf(req.header('Origin')) !== -1) {
+        corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+    } else {
+        corsOptions = { origin: false } // disable CORS for this request
+    }
+    callback(null, corsOptions) // callback expects two parameters: error and options
+}
+
+app.get('/getLocation', cors(corsOptionsDelegate), async (req, res) => {
     const userLoc = await axios.get('http://ip-api.com/json/')
     const jsonUserLoc = (JSON.stringify(userLoc.data, null, 4))
     const jsonUserLocStr = JSON.parse(jsonUserLoc);
@@ -51,7 +66,7 @@ app.get('/getLocation', async (req, res) => {
     }
 });
 
-app.post('/getCityWeather', async (req, res) => {
+app.post('/getCityWeather', cors(corsOptionsDelegate), async (req, res) => {
     const lat = req.body.lat;
     const lon = req.body.lon;
     const tempUnit = req.body.tempUnit;
@@ -83,40 +98,7 @@ app.post('/getCityWeather', async (req, res) => {
     }
 });
 
-// app.post('/getCityWeather', async (req, res) => {
-//     const city = req.body.city;
-//     const lat = req.body.lat;
-//     const lon = req.body.lon;
-//     const tempUnit = req.body.tempUnit;
-//     try{
-//         //get current weather api
-//         const responseWeather = await axios.get('https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+process.env.VUE_APP_WeatherAPI+'&units='+tempUnit);
-//         const responseWeatherStr = JSON.stringify(responseWeather.data, null, 4);
-//         const response = JSON.parse(responseWeatherStr)
-        
-//         //get weather forecast api
-//         const responseForecast = await axios.get('https://api.openweathermap.org/data/2.5/forecast?q='+city+'&appid='+process.env.VUE_APP_WeatherAPI+'&units='+tempUnit);
-//         const forecastStr = (JSON.stringify(responseForecast.data, null, 4))
-    
-//         //copy the forecast list itself, it's all we need from forecast data
-//         const forecast = JSON.parse(forecastStr)
-//         const forecastList = forecast.list;
-
-//         //add the unit of measure to the response obj
-//         const tempScale = tempUnit;
-//         response.tempScale = tempScale;
-
-//         //add forecast to current weather
-//         response.list = forecastList;           
-        
-//         res.send(JSON.stringify(response, null, 4)); 
-//     }       
-//         catch(err){
-//         console.log(err);
-//     }
-// });
-
-app.get('/getforecast', async (req, res) => {
+app.get('/getforecast', cors(corsOptionsDelegate), async (req, res) => {
     const userLoc = await axios.get('http://ip-api.com/json/')
     const jsonUserLoc = (JSON.stringify(userLoc.data, null, 4))
     const jsonUserLocStr = JSON.parse(jsonUserLoc);
@@ -135,7 +117,7 @@ app.get('/getforecast', async (req, res) => {
     }
 });
 
-app.post('/searchCityList', async (req, res) => {
+app.post('/searchCityList', cors(corsOptionsDelegate), async (req, res) => {
     let fs = require("fs");
     const tempUnit = req.body.tempUnit;
     const city = req.body.city;
