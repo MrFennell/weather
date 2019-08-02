@@ -14,7 +14,7 @@ app.options('*', cors())
 
 app.use(bodyParser.json())
 
-var whitelist = ['https://vigilant-lamarr-c21282.netlify.com', 'http://localhost:8080', 'localhost:8080']
+var whitelist = ['https://weather.fennellweb.com', 'https://vigilant-lamarr-c21282.netlify.com', 'http://localhost:8080', 'localhost:8080']
 
 var corsOptionsDelegate = function (req, callback) {
     var corsOptions;
