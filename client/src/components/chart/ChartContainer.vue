@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="this.$store.state.loaded" >
         <b-tabs align="center">
           <b-tab @click="chart = 'Temp'" title="Temperature"></b-tab>
           <b-tab @click="chart = 'Hum'" title="Humidity"></b-tab>

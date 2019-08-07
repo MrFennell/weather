@@ -31,9 +31,7 @@
       }
     },
     mounted(){
-        // if(this.$store.state.chartRender === true){
-          this.fillData();
-        // }
+      this.fillData();
     },
     methods: {
       setChartRender(){

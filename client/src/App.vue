@@ -5,15 +5,15 @@
    </b-row>
     <b-row  v-if="this.$store.state.citySelect">
      <b-col>
-    <div class="centered">
-      <weatherSearch /> 
-      <SearchResults />
-    </div>
+        <div class="centered">
+          <weatherSearch /> 
+          <SearchResults />
+        </div>
      </b-col>
    </b-row>
 
   <b-row v-if="this.$store.state.loaded">
-    <b-col>
+    <b-col v-if="!this.$store.state.citySelect">
         <div class="centered">
           <currentWeather />
           <div id="weather-search">
@@ -22,15 +22,14 @@
           </div>
         </div>
     </b-col>
-  
   </b-row>
-    <b-row>
-  <b-col v-if="this.$store.state.loaded">
-    <ChartContainer />
-  </b-col>
+  <b-row v-if="!this.$store.state.citySelect">
+    <b-col>
+      <ChartContainer />
+    </b-col>
   </b-row>
-  <b-row>
-    <b-col>     
+  <b-row v-if="!this.$store.state.citySelect">
+    <b-col >     
       <forecast />
     </b-col>      
   </b-row> 

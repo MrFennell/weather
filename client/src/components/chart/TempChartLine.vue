@@ -26,12 +26,10 @@ export default {
         this.fillData();
     }
   },
-  
   watch: {
     chartData: function(newValue){
       if (newValue){
         this.fillData();
-        
       }
     }
   },

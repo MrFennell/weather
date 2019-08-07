@@ -158,7 +158,6 @@ export default new Vuex.Store({
             commit('setLoaded', false);
             const response = await axios.post('https://weatherfennell.herokuapp.com/getCityWeather', payload)
             commit('setLocation', response.data);
-            
             commit('setLoaded', true);
         }
     }
