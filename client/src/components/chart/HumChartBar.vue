@@ -32,15 +32,16 @@
       }
     },
     mounted(){
-        if(this.$store.state.chartRender === true){ //set to remove duplicate rendering at first load
+        // if(this.$store.state.chartRender === true){ //set to remove duplicate rendering at first load
           this.fillData();
-        }
+        // }
     },
     methods: {
       setChartRender(){
         this.$store.dispatch('setChartRender');
       },
       fillData() {
+
         this.datacollection = {
           labels: this.chartData.labels,
           datasets: [

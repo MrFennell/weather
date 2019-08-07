@@ -1,5 +1,5 @@
 <template>
-<div v-if="!$store.state.loaded">
+<div >
   <h2>Choose a city below:</h2>
   <div id="results-list" >
     <div class="results-list-item" v-on:click="searchCity(result)" v-for="(result, index) in results" v-bind:key="index">

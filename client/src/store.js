@@ -10,7 +10,8 @@ export default new Vuex.Store({
         cities: [],
         uom: 'Imperial',
         loaded: false,
-        chartRender: false
+        chartRender: false,
+        citySelect: false
     },
     getters: {
         dayList: (state) => { //return array of day names in order, no data in names just strings
@@ -125,6 +126,9 @@ export default new Vuex.Store({
         setCities(state, cities){
             state.cities = cities;
         },
+        setCitySelect(state, citySelect){
+            state.citySelect = citySelect;
+        },
         setUom(state, uom){
             state.uom = uom;
         }
@@ -143,13 +147,18 @@ export default new Vuex.Store({
             commit('setUom', payload);
         },
         async searchCityList({commit}, payload){
+            commit('setLoaded', false);
             const response = await axios.post('https://weatherfennell.herokuapp.com/searchCityList', payload)
             commit('setCities', response.data);
-            commit('setLoaded', false);
+            commit('setCitySelect', true);
+            commit('setLoaded', true);
         },
         async getCityWeather({commit}, payload){
+            commit('setCitySelect', false);
+            commit('setLoaded', false);
             const response = await axios.post('https://weatherfennell.herokuapp.com/getCityWeather', payload)
             commit('setLocation', response.data);
+            
             commit('setLoaded', true);
         }
     }

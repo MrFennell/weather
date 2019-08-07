@@ -24,22 +24,23 @@
     },
     watch: {
       chartData: function(newValue){
-        if (newValue){
+        if (newValue ){
           this.setChartRender()
           this.fillData();
         }
       }
     },
     mounted(){
-        if(this.$store.state.chartRender === true){
+        // if(this.$store.state.chartRender === true){
           this.fillData();
-        }
+        // }
     },
     methods: {
       setChartRender(){
         this.$store.dispatch('setChartRender');
       },
       fillData() {
+        
         this.datacollection = {
           labels: this.chartData.labels,
           datasets: [
@@ -84,7 +85,7 @@
             },
             responsive: true,
             maintainAspectRatio: false
-        }        
+        }   
       }
     }
   };

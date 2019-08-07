@@ -1,28 +1,39 @@
 <template>
-<b-container >
-  <b-row>
-      <b-col>
-        <div id="main">
-        <currentWeather />
-        <div id="weather-search">
-          <weatherSearch /> 
-          <SearchResults />
-        </div>
-        </div>
-      </b-col>
-    
-    </b-row>
-     <b-row>
-    <!-- <b-col v-if="this.$store.state.loaded"> -->
+<b-container  >
+   <b-row  v-if="!this.$store.state.loaded">
+    <Loading />
+   </b-row>
+    <b-row  v-if="this.$store.state.citySelect">
+     <b-col>
+    <div class="centered">
+      <weatherSearch /> 
+      <SearchResults />
+    </div>
+     </b-col>
+   </b-row>
+
+  <b-row v-if="this.$store.state.loaded">
     <b-col>
-      <ChartContainer />
+        <div class="centered">
+          <currentWeather />
+          <div id="weather-search">
+            <weatherSearch /> 
+            <!-- <SearchResults /> -->
+          </div>
+        </div>
     </b-col>
-    </b-row>
+  
+  </b-row>
     <b-row>
-      <b-col>     
-        <forecast />
-      </b-col>      
-    </b-row> 
+  <b-col v-if="this.$store.state.loaded">
+    <ChartContainer />
+  </b-col>
+  </b-row>
+  <b-row>
+    <b-col>     
+      <forecast />
+    </b-col>      
+  </b-row> 
   
 </b-container>
 </template>
@@ -33,8 +44,8 @@ import CurrentWeather from './components/CurrentWeather.vue'
 import WeatherSearch from './components/search/WeatherSearch.vue'
 import SearchResults from './components/search/SearchResults.vue'
 import ChartContainer from './components/chart/ChartContainer.vue';
-// import citiesList from './components/citiesList.vue'
 import Forecast from './components/Forecast.vue'
+import Loading from './components/loading/Loading.vue';
 
 import { mapGetters } from 'vuex'
 
@@ -46,6 +57,7 @@ export default {
     CurrentWeather,
     ChartContainer,
     Forecast,
+    Loading
   },
   mounted() {
     this.$store.dispatch('getLocation')
@@ -72,7 +84,7 @@ export default {
     -moz-osx-font-smoothing: grayscale;
   }
   $blue: #357695;
-#main {
+.centered {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
