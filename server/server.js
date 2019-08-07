@@ -13,6 +13,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.options('*', cors())
 
 app.use(bodyParser.json())
+const requestIp = require('request-ip');
+
 
 var whitelist = ['https://weather.fennellweb.com', 'https://vigilant-lamarr-c21282.netlify.com', 'http://localhost:8080', 'localhost:8080']
 
@@ -27,7 +29,13 @@ var corsOptionsDelegate = function (req, callback) {
 }
 
 app.get('/getLocation', cors(corsOptionsDelegate), async (req, res) => {
-    const userLoc = await axios.get('http://ip-api.com/json/')
+
+    const clientIp = requestIp.getClientIp(req); 
+    let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+    if (ip === "::1"){ //set ip var to blank if local testing
+        ip = "";
+    }
+    const userLoc = await axios.get('http://ip-api.com/json/'+ip)
     const jsonUserLoc = (JSON.stringify(userLoc.data, null, 4))
     const jsonUserLocStr = JSON.parse(jsonUserLoc);
     const lat = jsonUserLocStr.lat;
